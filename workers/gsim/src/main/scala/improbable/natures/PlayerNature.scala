@@ -1,6 +1,6 @@
 package improbable.natures
 
-import improbable.behaviours.AddPlayerEngineConstraints
+import improbable.behaviours.AddEngineConstraintsForPlayer
 import improbable.behaviours.delegates.{DelegateCheckIsPlayer, DelegateTransformStateToClient}
 import improbable.check.CheckIsPlayer
 import improbable.corelib.natures.{BaseNature, NatureApplication, NatureDescription}
@@ -22,7 +22,7 @@ object PlayerNature extends NatureDescription {
     Set(
       descriptorOf[DelegateCheckIsPlayer],
       descriptorOf[DelegateTransformStateToClient],
-      descriptorOf[AddPlayerEngineConstraints]
+      descriptorOf[AddEngineConstraintsForPlayer]
     )
   }
 

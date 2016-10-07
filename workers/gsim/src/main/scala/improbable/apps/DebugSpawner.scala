@@ -9,7 +9,7 @@ import improbable.papi.worldapp.WorldApp
 class DebugSpawner(appWorld: AppWorld, logger: Logger) extends WorldApp {
 
   for (i <- 1 to 5) {
-    appWorld.entities.spawnEntity(NpcNature(Vector3d(i, 10, 2)))
+    //appWorld.entities.spawnEntity(NpcNature(Vector3d(i, 10, 2)))
   }
 
 }

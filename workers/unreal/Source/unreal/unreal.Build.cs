@@ -23,11 +23,11 @@ public class unreal : SpatialOSModuleRules
         switch (Target.Configuration)
         {
             case UnrealTargetConfiguration.Shipping:
-                Definitions.Add("UNREALFSIM=1");
+                Definitions.Add("UNREAL_FSIM=1");
                 break;
 
             default:
-                Definitions.Add("UNREALCLIENT=1");
+                Definitions.Add("UNREAL_CLIENT=1");
                 break;
         }
     }
