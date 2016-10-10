@@ -13,7 +13,13 @@ class UNREAL_API AOtherPlayerController : public AAIController
 {
 	GENERATED_BODY()
 	
-	
-	
-	
+public:
+	AOtherPlayerController();
+
+protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+	class UTransformReceiver* TransformReceiver;
+	void SetNewMoveDestination(const FVector DestLocation);
 };

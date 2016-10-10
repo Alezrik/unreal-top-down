@@ -6,6 +6,7 @@
 #include "TransformSender.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
+#include "OtherPlayerController.h"
 
 AunrealCharacter::AunrealCharacter()
 {
@@ -114,13 +115,28 @@ void AunrealCharacter::InitialiseAsOwnPlayer()
 
 void AunrealCharacter::InitialiseAsOtherPlayer()
 {
-//	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
-//	AController* currentController = GetController();
-//	if (currentController == playerController)
-//	{
-//		currentController->UnPossess();
-//	}
-//	if ()
+	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
+	AController* currentController = GetController();
+	if (currentController == playerController)
+	{
+		playerController->UnPossess();
+		currentController = GetController();
+	}
+	if (currentController == nullptr)
+	{
+		AOtherPlayerController* otherPlayerController = Cast<AOtherPlayerController>(GetWorld()->SpawnActor(AOtherPlayerController::StaticClass()));
+		otherPlayerController->Possess(this);
+	}
+
+	if (CursorToWorld->IsActive())
+	{
+		CursorToWorld->SetActive(false);
+	}
+
+	if (TopDownCameraComponent->IsActive())
+	{
+		TopDownCameraComponent->Deactivate();
+	}
 }
 
 void AunrealCharacter::UpdateCursorPosition()
