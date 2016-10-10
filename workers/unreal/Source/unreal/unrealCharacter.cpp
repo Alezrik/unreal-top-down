@@ -50,6 +50,7 @@ AunrealCharacter::AunrealCharacter()
 
 	// Deactivate by default
 	CursorToWorld->SetActive(false);
+	CursorToWorld->SetHiddenInGame(true);
 
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
@@ -106,6 +107,7 @@ void AunrealCharacter::InitialiseAsOwnPlayer()
 	{
 		CursorToWorld->SetActive(true);
 	}
+	CursorToWorld->SetHiddenInGame(false);
 
 	if (!TopDownCameraComponent->IsActive())
 	{
@@ -132,6 +134,7 @@ void AunrealCharacter::InitialiseAsOtherPlayer()
 	{
 		CursorToWorld->SetActive(false);
 	}
+	CursorToWorld->SetHiddenInGame(true);
 
 	if (TopDownCameraComponent->IsActive())
 	{
@@ -139,7 +142,7 @@ void AunrealCharacter::InitialiseAsOtherPlayer()
 	}
 }
 
-void AunrealCharacter::UpdateCursorPosition()
+void AunrealCharacter::UpdateCursorPosition() const
 {
 	if (CursorToWorld != nullptr)
 	{

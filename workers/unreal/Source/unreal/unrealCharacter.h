@@ -19,8 +19,10 @@ public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
+	FORCEINLINE class UTransformReceiver* GetTransformReceiver() const { return TransformReceiver; }
+
 private:
-	void AunrealCharacter::UpdateCursorPosition();
+	void AunrealCharacter::UpdateCursorPosition() const;
 	void AunrealCharacter::Initialise();
 	void AunrealCharacter::InitialiseAsOwnPlayer();
 	void AunrealCharacter::InitialiseAsOtherPlayer();

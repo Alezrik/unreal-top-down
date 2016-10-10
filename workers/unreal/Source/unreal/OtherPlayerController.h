@@ -17,9 +17,10 @@ public:
 	AOtherPlayerController();
 
 protected:
-	virtual void BeginPlay() override;
+	void Initialise();
+	bool IsInitialised() const;
 	virtual void Tick(float DeltaTime) override;
 
-	class UTransformReceiver* TransformReceiver;
+	class AunrealCharacter* mControlledCharacter;
 	void SetNewMoveDestination(const FVector DestLocation);
 };

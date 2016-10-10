@@ -3,22 +3,32 @@
 #include "unreal.h"
 #include "TransformReceiver.h"
 #include "OtherPlayerController.h"
+#include "unrealCharacter.h"
 
 AOtherPlayerController::AOtherPlayerController()
 {
-
+	mControlledCharacter = nullptr;
 }
 
-void AOtherPlayerController::BeginPlay()
+void AOtherPlayerController::Initialise()
 {
-	TransformReceiver = GetOwner()->FindComponentByClass<UTransformReceiver>();
+	if (GetPawn() == nullptr) return;
+	mControlledCharacter = Cast<AunrealCharacter>(GetPawn());
+}
+
+bool AOtherPlayerController::IsInitialised() const
+{
+	return mControlledCharacter != nullptr;
 }
 
 void AOtherPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	Initialise();
+	if (!IsInitialised()) return;
 
-	SetNewMoveDestination(TransformReceiver->GetLocation());
+	SetNewMoveDestination(mControlledCharacter->GetTransformReceiver()->GetLocation());
 }
 
 void AOtherPlayerController::SetNewMoveDestination(const FVector DestLocation)
