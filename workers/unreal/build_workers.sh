@@ -30,12 +30,12 @@ echo "Zipping up Fsim..."
 
 pushd $FSIM_DIR$GENERATED_FOLDER
 mv $GENERATED_EXE $FSIM_NAME".exe"
-zip -r $FSIM_NAME".zip" "."
+jar -cMf $FSIM_NAME".zip" "."
 popd
 
 pushd $CLIENT_DIR$GENERATED_FOLDER
 mv $GENERATED_EXE $CLIENT_NAME".exe"
-# zip -r $CLIENT_NAME".zip" "."
+# jar -cMf $CLIENT_NAME".zip" "."
 popd
 
 mkdir -p $WORKER_ASSEMBLY_DIR
