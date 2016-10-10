@@ -4,7 +4,6 @@
 
 #include "Components/ActorComponent.h"
 #include "SpatialEntityStorageComponent.h"
-#include "TransformReceiver.h"
 #include "TransformSender.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -27,7 +26,6 @@ public:
 
 private:
 	USpatialEntityStorageComponent* mSpatialComponent;
-	UTransformReceiver *mTransformReceiver;
 	void Initialise();
 	bool IsInitialised() const;
 	worker::Entity* GetEntity() const;

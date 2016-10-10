@@ -16,15 +16,14 @@ const std::string WorkerType = (IS_FSIM ? "UnrealFsim" : "UnrealClient");
 
 AunrealGameMode::AunrealGameMode()
 {
-	// use our custom PlayerController class
+	// Set the default player controller class
 	PlayerControllerClass = AunrealPlayerController::StaticClass();
 
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
+	// Don't spawn players automatically
+	bStartPlayersAsSpectators = true;
+
+	// No need for default pawn class
+	DefaultPawnClass = nullptr;
 }
 
 void AunrealGameMode::StartPlay()
@@ -60,7 +59,7 @@ void AunrealGameMode::CreateWorkerConnection()
 	Connection.Reset(new FWorkerConnection());
 	Connection->GetView().OnDisconnect([](const worker::DisconnectOp& disconnect)
 	{
-		GIsRequestingExit = true;
+		//GIsRequestingExit = true;
 	});
 	worker::ConnectionParameters Params;
 	Params.WorkerType = WorkerType;

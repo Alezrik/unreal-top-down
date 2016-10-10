@@ -2,6 +2,8 @@
 
 #include "unreal.h"
 #include "unrealCharacter.h"
+#include "TransformReceiver.h"
+#include "TransformSender.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Components/DecalComponent.h"
 
@@ -45,12 +47,83 @@ AunrealCharacter::AunrealCharacter()
 	CursorToWorld->DecalSize = FVector(16.0f, 32.0f, 32.0f);
 	CursorToWorld->SetRelativeRotation(FRotator(90.0f, 0.0f, 0.0f).Quaternion());
 
+	// Deactivate by default
+	CursorToWorld->SetActive(false);
+
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	// Create a transform receiver
+	TransformReceiver = CreateDefaultSubobject<UTransformReceiver>(TEXT("TransformReceiver"));
+
+	// Create a transform sender
+	TransformSender = CreateDefaultSubobject<UTransformSender>(TEXT("TransformSender"));
 }
 
 void AunrealCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	
+	Initialise();
+
+	if (TransformSender->HasAuthority())
+	{
+		UpdateCursorPosition();
+	}
+}
+
+/** If this is our player, then possess it with the player controller and activate the camera and the cursor,
+ *	otherwise, add an OtherPlayerController */
+void AunrealCharacter::Initialise()
+{
+	if (TransformSender->HasAuthority())
+	{
+		InitialiseAsOwnPlayer();
+	} else
+	{
+		InitialiseAsOtherPlayer();
+	}
+}
+
+void AunrealCharacter::InitialiseAsOwnPlayer()
+{
+	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
+	AController* currentController = GetController();
+	if (currentController != playerController)
+	{
+		if (currentController != nullptr)
+		{
+			currentController->UnPossess();
+		}
+
+		playerController->UnPossess();
+		playerController->Possess(this);
+	}
+
+	if (!CursorToWorld->IsActive())
+	{
+		CursorToWorld->SetActive(true);
+	}
+
+	if (!TopDownCameraComponent->IsActive())
+	{
+		TopDownCameraComponent->Activate();
+	}
+}
+
+void AunrealCharacter::InitialiseAsOtherPlayer()
+{
+//	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
+//	AController* currentController = GetController();
+//	if (currentController == playerController)
+//	{
+//		currentController->UnPossess();
+//	}
+//	if ()
+}
+
+void AunrealCharacter::UpdateCursorPosition()
 {
 	if (CursorToWorld != nullptr)
 	{

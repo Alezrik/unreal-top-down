@@ -20,6 +20,11 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
 private:
+	void AunrealCharacter::UpdateCursorPosition();
+	void AunrealCharacter::Initialise();
+	void AunrealCharacter::InitialiseAsOwnPlayer();
+	void AunrealCharacter::InitialiseAsOtherPlayer();
+
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* TopDownCameraComponent;
@@ -31,5 +36,13 @@ private:
 	/** A decal that projects to the cursor location. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UDecalComponent* CursorToWorld;
+
+	/** The transform receiver */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SpatialOS", meta = (AllowPrivateAccess = "true"))
+	class UTransformReceiver* TransformReceiver;
+
+	/** The transform sender */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SpatialOS", meta = (AllowPrivateAccess = "true"))
+	class UTransformSender* TransformSender;
 };
 

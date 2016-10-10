@@ -16,7 +16,6 @@ UTransformSender::UTransformSender()
 	// ...
 
 	mSpatialComponent = nullptr;
-	mTransformReceiver = nullptr;
 }
 
 
@@ -24,7 +23,6 @@ UTransformSender::UTransformSender()
 void UTransformSender::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 
@@ -74,15 +72,11 @@ void UTransformSender::Initialise()
 	{
 		mSpatialComponent = GetOwner()->FindComponentByClass<USpatialEntityStorageComponent>();
 	}
-	if (mTransformReceiver == nullptr)
-	{
-		mTransformReceiver = GetOwner()->FindComponentByClass<UTransformReceiver>();
-	}
 }
 
 bool UTransformSender::IsInitialised() const
 {
-	if (mSpatialComponent == nullptr || mTransformReceiver == nullptr || GetEntity() == nullptr)
+	if (mSpatialComponent == nullptr || GetEntity() == nullptr)
 	{
 		return false;
 	}
