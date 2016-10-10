@@ -61,6 +61,8 @@ AunrealCharacter::AunrealCharacter()
 
 	// Create a transform sender
 	TransformSender = CreateDefaultSubobject<UTransformSender>(TEXT("TransformSender"));
+
+	SpawnCollisionHandlingMethod = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 }
 
 void AunrealCharacter::Tick(float DeltaSeconds)
