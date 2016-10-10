@@ -29,6 +29,11 @@
             "unreal",
             "build"
           ]
+        },
+        {
+          "Name": "Build unreal workers",
+          "Command": "bash",
+          "Arguments": ["build_workers.sh"]
         }
       ]
     },
@@ -49,6 +54,11 @@
             "unreal",
             "clean"
           ]
+        },
+        {
+          "Name": "Clean unreal workers",
+          "Command": "bash",
+          "Arguments": ["clean_workers.sh"]
         }
       ]
     }

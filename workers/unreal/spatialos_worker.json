@@ -1,6 +1,6 @@
 {
 	"build_type": "unreal",
-	"generate_build_scripts": true,
+	"generate_build_scripts": false,
 	"launch": {
 		"client": {
 			"windows": {
