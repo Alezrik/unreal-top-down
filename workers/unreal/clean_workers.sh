@@ -10,7 +10,7 @@ OUTPUT_DIR=$PROJECT_PATH"temp_worker_builds/"
 FSIM_DIR=$OUTPUT_DIR"fsim/"
 CLIENT_DIR=$OUTPUT_DIR"client/"
 
-echo "Removing worker build output directory: " $OUTPUT_DIR " ..."
+echo "Removing worker build output directory: " $OUTPUT_DIR
 
 rm -rf $OUTPUT_DIR # remove the output directory if already exists
 
@@ -20,6 +20,6 @@ CLIENT_NAME="UnrealClient@Windows"
 GENERATED_FOLDER="WindowsNoEditor/"
 GENERATED_EXE=$PROJECT_NAME".exe"
 
-echo "Removing worker build assembly directory: " $WORKER_ASSEMBLY_DIR " ..."
+echo "Removing worker build assembly directory: " $WORKER_ASSEMBLY_DIR
 
 rm -rf $WORKER_ASSEMBLY_DIR

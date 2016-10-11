@@ -2,7 +2,7 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-BUILD_TOOL="C:/Program Files (x86)/Epic Games/4.12/Engine/Build/BatchFiles/RunUAT.bat"
+BUILD_TOOL="RunUAT.bat" # requires C:\Program Files (x86)\Epic Games\4.12\Engine\Build\BatchFiles\ to be added to the Path
 PROJECT_PATH=$SCRIPTPATH"/"
 PROJECT_NAME="unreal"
 
