@@ -18,8 +18,8 @@ To see the demo in action:
 ## 2. Setup the demo
 
 - Clone the repo: `git clone https://github.com/improbable-public/unreal-top-down.git`
+- Move into the repo root in a shell: `cd unreal-top-down`
 - Open the repo in an explorer window, navigate to `workers/unreal/`, right-click on `unreal.uproject`, select 'Switch Unreal Engine version...' and browse to the location of the Unreal Engine source repo you just cloned
-- Move into the root of the repo directory in a shell: `cd unreal-top-down`
 - Build the project: `spatial build` (note that the `Build unreal workers` step takes a long time)
 - Run: `spatial local start`
 - Open the World Viewer to see the NPCs and the spooled up managed Unreal AI worker moving them all about: `http://localhost:5050`
@@ -34,4 +34,4 @@ Important things to note:
 - The `TransformSender` (`UTransformSender`) and `TransformReceiver` (`UTransformReceiver`) components can be added to Actors to sync the `Transform` state between Unreal workers and SpatialOS.
 - A `TransformReceiver` simply reads values from the `TransformState` and exposes them in public methods for consumption by your game-specific logic.
 - A `TransformSender` will read the Actor's location and rotation every frame, and send `TransformState` updates to SpatialOS, but only if it is running on an Unreal worker that is authoritative over the transform of that entity.
-- For now, the same code runs on an Unreal Fsim / managed worker and an Unreal Client. When we build our project, both a client and fsim are generated in the `build/assembly/worker` folder, with the only difference being that the former connects to SpatialOS with `WorkerType = "UnrealClient"` and the latter with `WorkerType = "UnrealFsim"`. See the Gsim bridge settings and the player lifecycle manager for how we distinguish between the two in the Gsim.
+- For now, the same code runs on an Unreal Fsim / managed worker and an Unreal Client. When we build our project, both a client and fsim are generated in the `build/assembly/worker` folder, with the only difference being that the former connects to SpatialOS with `WorkerType = "UnrealClient"` and the latter with `WorkerType = "UnrealFsim"`. The latter is also built as an Unreal dedicated server, which means that unnecessary extras such as rendering and audio are stripped out, and it is headless; it runs as a background process. See the Gsim bridge settings and the player lifecycle manager for how we distinguish between the two in the Gsim.
