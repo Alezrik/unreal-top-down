@@ -19,7 +19,7 @@ To see the demo in action:
 
 - Clone the repo: `git clone https://github.com/improbable-public/unreal-top-down.git`
 - Open the repo in an explorer window, navigate to `workers/unreal/`, right-click on `unreal.uproject`, select 'Switch Unreal Engine version...' and browse to the location of the Unreal Engine source repo you just cloned
-- Move into the directory: `cd unreal-top-down`
+- Move into the root of the repo directory in a shell: `cd unreal-top-down`
 - Build the project: `spatial build` (note that the `Build unreal workers` step takes a long time)
 - Run: `spatial local start`
 - Open the World Viewer to see the NPCs and the spooled up managed Unreal AI worker moving them all about: `http://localhost:5050`
