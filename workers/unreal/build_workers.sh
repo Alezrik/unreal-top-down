@@ -2,7 +2,12 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-BUILD_TOOL="RunUAT.bat" # requires {UNREAL_ENGINE_SRC_DIRECTORY}\Engine\Build\BatchFiles to be added to the Path
+if [ -z $UNREAL_HOME ]; then
+	echo "ERROR: you must set the environment variable UNREAL_HOME to the location of your Unreal Engine source directory"
+	exit 1
+fi
+
+BUILD_TOOL=$UNREAL_HOME"/Engine/Build/BatchFiles/RunUAT.bat"
 PROJECT_PATH=$SCRIPTPATH"/"
 PROJECT_NAME="unreal"
 
