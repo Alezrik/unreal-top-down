@@ -9,6 +9,7 @@ To see the demo in action:
 ## 1. Setup Unreal
 
 - Get the Unreal Engine source by forking and cloning the repo: https://www.unrealengine.com/ue4-on-github
+- Set the environment variable `UNREAL_HOME` to the root directory of this repo
 - Switch to branch 4.12 in your local repo (this is the version of the Unreal Engine we'll be using): `git checkout 4.12`
 - Run: `Setup.bat`
 - Run: `GenerateProjectFiles.bat`
@@ -17,7 +18,6 @@ To see the demo in action:
 ## 2. Setup the demo
 
 - Clone the repo: `git clone https://github.com/improbable-public/unreal-top-down.git`
-- Set the environment variable UNREAL_HOME to the root directory of this repo
 - Open the repo in an explorer window, navigate to `workers/unreal/`, right-click on `unreal.uproject`, select 'Switch Unreal Engine version...' and browse to the location of the Unreal Engine source repo you just cloned
 - Move into the directory: `cd unreal-top-down`
 - Build the project: `spatial build` (note that the `Build unreal workers` step takes a long time)
