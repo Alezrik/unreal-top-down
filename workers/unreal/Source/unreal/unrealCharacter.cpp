@@ -121,9 +121,9 @@ void AunrealCharacter::InitialiseAsOtherPlayer()
 {
 	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
 	AController* currentController = GetController();
-	if (currentController == playerController)
+	if (currentController != nullptr && currentController == playerController)
 	{
-		playerController->UnPossess();
+		currentController->UnPossess();
 		currentController = GetController();
 	}
 	if (currentController == nullptr)

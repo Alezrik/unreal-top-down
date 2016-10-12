@@ -5,10 +5,10 @@
 #include "unrealPlayerController.h"
 #include "Engine.h"
 
-#ifdef UNREAL_CLIENT
-const static bool IS_FSIM = false;
-#else
+#if UE_SERVER
 const static bool IS_FSIM = true;
+#else
+const static bool IS_FSIM = false;
 #endif
 
 const std::string WorkerType = (IS_FSIM ? "UnrealFsim" : "UnrealClient");

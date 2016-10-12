@@ -42,7 +42,7 @@
     },
     {
       "name": "player_engine_type",
-      "value": "UnityClient"
+      "value": "UnrealClient"
     }
   ],
   "nodes": [

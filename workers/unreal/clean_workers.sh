@@ -2,24 +2,33 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-BUILD_TOOL="C:/Program Files (x86)/Epic Games/4.12/Engine/Build/BatchFiles/RunUAT.bat"
 PROJECT_PATH=$SCRIPTPATH"/"
 PROJECT_NAME="unreal"
 
 OUTPUT_DIR=$PROJECT_PATH"temp_worker_builds/"
-FSIM_DIR=$OUTPUT_DIR"fsim/"
-CLIENT_DIR=$OUTPUT_DIR"client/"
 
-echo "Removing worker build output directory: " $OUTPUT_DIR
+echo "Removing temporary output directory: " $OUTPUT_DIR
 
-rm -rf $OUTPUT_DIR # remove the output directory if already exists
+if [ -d $OUTPUT_DIR ]; then
+	rm -rf $OUTPUT_DIR # remove the output directory if already exists
+fi
 
 WORKER_ASSEMBLY_DIR=$PROJECT_PATH"../../build/assembly/worker/"
-FSIM_NAME="UnrealFsim@Windows"
-CLIENT_NAME="UnrealClient@Windows"
-GENERATED_FOLDER="WindowsNoEditor/"
-GENERATED_EXE=$PROJECT_NAME".exe"
+FSIM_ZIP="UnrealFsim@Windows.zip"
+CLIENT_FOLDER="UnrealClient@Windows"
 
-echo "Removing worker build assembly directory: " $WORKER_ASSEMBLY_DIR
+echo "Removing worker builds... "
 
-rm -rf $WORKER_ASSEMBLY_DIR
+if [ -d $WORKER_ASSEMBLY_DIR ]; then
+	pushd $WORKER_ASSEMBLY_DIR
+
+	if [ -d $CLIENT_FOLDER ]; then
+		rm -rf $CLIENT_FOLDER
+	fi
+
+	if [ -f $FSIM_ZIP ]; then
+		rm -rf $FSIM_ZIP
+	fi
+
+	popd
+fi
