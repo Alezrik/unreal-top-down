@@ -2,27 +2,37 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-BUILD_TOOL="RunUAT.bat" # requires C:\Program Files (x86)\Epic Games\4.12\Engine\Build\BatchFiles\ to be added to the Path
+if [ -z $UNREAL_HOME ]; then
+	echo "ERROR: you must set the environment variable UNREAL_HOME to the location of your Unreal Engine source directory"
+	exit 1
+fi
+
+BUILD_TOOL=$UNREAL_HOME"/Engine/Build/BatchFiles/RunUAT.bat"
 PROJECT_PATH=$SCRIPTPATH"/"
 PROJECT_NAME="unreal"
 
-OUTPUT_DIR=$PROJECT_PATH"temp_worker_builds/"
-FSIM_DIR=$OUTPUT_DIR"fsim/"
-CLIENT_DIR=$OUTPUT_DIR"client/"
+TEMP_DIR=$PROJECT_PATH"temp_worker_builds/"
 
-rm -rf $OUTPUT_DIR # remove the output directory if already exists
+if [ -d $TEMP_DIR ]; then
+	rm -rf $TEMP_DIR # remove the output directory if already exists
+fi
 
-echo "Building Unreal Fsim..."
+FSIM_DIR=$TEMP_DIR"fsim/"
+CLIENT_DIR=$TEMP_DIR"client/"
+
+echo "Building unreal fsim worker..."
 
 eval \"$BUILD_TOOL\" BuildCookRun -project=\"$PROJECT_PATH$PROJECT_NAME.uproject\" -noP4 -platform=Win64 -clientconfig=Shipping -cook -allmaps -build -stage -pak -archive -archivedirectory=\"$FSIM_DIR\"
 
-echo "Building Unreal Client..."
+echo "Building unreal client worker..."
 
 eval \"$BUILD_TOOL\" BuildCookRun -project=\"$PROJECT_PATH$PROJECT_NAME.uproject\" -noP4 -platform=Win64 -clientconfig=Development -cook -allmaps -build -stage -pak -archive -archivedirectory=\"$CLIENT_DIR\"
 
 WORKER_ASSEMBLY_DIR=$PROJECT_PATH"../../build/assembly/worker/"
+
 FSIM_NAME="UnrealFsim@Windows"
 CLIENT_NAME="UnrealClient@Windows"
+
 GENERATED_FOLDER="WindowsNoEditor/"
 GENERATED_EXE=$PROJECT_NAME".exe"
 
@@ -41,7 +51,15 @@ popd
 mkdir -p $WORKER_ASSEMBLY_DIR
 
 pushd $WORKER_ASSEMBLY_DIR
-rm -rf . # clean the worker assembly directory if not empty
+
+if [ -f $FSIM_NAME".zip" ]; then
+	rm -rf $FSIM_NAME".zip"
+fi
+
+if [ -d $CLIENT_NAME ]; then
+	rm -rf $CLIENT_NAME
+fi
+
 popd
 
 mv $FSIM_DIR$GENERATED_FOLDER$FSIM_NAME".zip" $WORKER_ASSEMBLY_DIR$FSIM_NAME".zip"
@@ -51,7 +69,7 @@ pushd $WORKER_ASSEMBLY_DIR
 mv $GENERATED_FOLDER $CLIENT_NAME
 popd
 
-rm -rf $OUTPUT_DIR # remove the output directory as no longer need it
+rm -rf $TEMP_DIR # remove the output directory as no longer need it
 
 echo "Finished building workers"
 
