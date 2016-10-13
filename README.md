@@ -3,9 +3,9 @@
 This example project is the Unreal Top Down Character (C++) template project (available from the Epic Unreal Engine launcher) integrated with SpatialOS. With a few easy steps, we've converted this simple single player Unreal project into an online multiplayer game with NPCs attached to AIControllers that run on managed Unreal workers.
 
 To see the demo in action:
+- Ensure that the environment variable `UNREAL_HOME` is set to the root directory of your Unreal Installation
 - Clone the repo: `git clone https://github.com/improbable-public/unreal-top-down.git`
 - Move into the directory: `cd unreal-top-down`
-- Add the Unreal Engine's `BatchFiles` directory to your PATH environment variable: e.g. `C:/Program Files (x86)/Epic Games/4.12/Engine/Build/BatchFiles/`
 - Build the project: `spatial build`
 - Run: `spatial local start`
 - Open the World Viewer to see the NPCs and the spooled up managed Unreal AI worker moving them all about: `http://localhost:5050`
